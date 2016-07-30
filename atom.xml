@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
 
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-30T16:03:10.502Z</updated>
+  <updated>2016-07-30T16:38:47.398Z</updated>
   <id>http://yoursite.com/</id>
 
   <author>
@@ -19,8 +19,8 @@
     <title>Redux API Middleman</title>
     <link href="http://yoursite.com/20160731/redux-api-middleman/"/>
     <id>http://yoursite.com/20160731/redux-api-middleman/</id>
-    <published>2016-07-30T16:03:10.506Z</published>
-    <updated>2016-07-30T16:03:10.502Z</updated>
+    <published>2016-07-30T16:38:47.406Z</published>
+    <updated>2016-07-30T16:38:47.398Z</updated>
 
     <content type="html"><![CDATA[<p>最近和同事們一起合作，做出了一個把 “送 API request” 這件事情抽象出來的 redux middleware: <a href="https://github.com/CodementorIO/redux-api-middleman" target="_blank" rel="external">redux-api-middleman</a></p>
 <p>這個東西本來是在 <a href="https://github.com/mz026/universal-redux-template" target="_blank" rel="external">redux-universal-template</a> 裡面的一個 middleware，但隨著功能越加越多，再者有別的 project 也要用到一樣的東西，所以索性把它抽出來變成一個獨立的 <a href="https://logdown.com/account/posts/775171-redux-api-middleman/edit" target="_blank" rel="external">npm package</a></p>
@@ -28,7 +28,7 @@
 <h1 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h1><p>為什麼要把”送 API request” 這件事情特別拿出來討論呢？主要是因為送 API 這件事情是在一般的 web app 裡面很常見的非同步(asynchronous) 的行為。而 asynchronous 的行為本身實作起來就比較複雜一點，要寫相對應的測試更是複雜。如果可以有某種方式讓我們把件事情抽象出來讓它單純一點，那就太好惹！<br>Redux 在這方面提供了一個很好的切入點，讓我們可以把這當中需要的東西抽出來變成一個 middleware。</p>
 <h1 id="What"><a href="#What" class="headerlink" title="What?"></a>What?</h1><p>如果要把 “送API request” 這件事情抽象出來的話，要把什麼東西抽出來呢？或更精確地說，我們希望抽出來之後，使用起來是什麼樣子呢？</p>
 <h2 id="Asynchronous-to-Synchronous"><a href="#Asynchronous-to-Synchronous" class="headerlink" title="Asynchronous to Synchronous"></a>Asynchronous to Synchronous</h2><p>首先，我們希望送 API request 這件事情從一個 asynchronous 的行為變成一個 “貌似 synchronous” 的行為。之所以說 “貌似” synchronous 的原因是，送 API 這件事情本質上就是 async 的，但我們可以透過某種抽象的過程，讓它寫起來和測試起來的時候，像是在處理一個 synchronous 的東西一樣。</p>
-<h2 id="支援-Universal-Rendering-link"><a href="#支援-Universal-Rendering-link" class="headerlink" title="支援 Universal Rendering(link)"></a>支援 Universal Rendering(link)</h2><p>送 API 這件事情，其實和 React Universal Rendering 息息相關。為什麼呢？因為在做 universal rendering 的時候，web server 必須向 API server 拿要 render 的 data，而這部份的程式其實和前端是共用的。但當這件事情發生在 server 上的時候，我們會多出一個需求：就是在 server 上要知道什麼時候 data 才全部都拉下來了，這時候才可以把 React components render 出來送給前端。</p>
+<h2 id="支援-Universal-Rendering"><a href="#支援-Universal-Rendering" class="headerlink" title="支援 Universal Rendering"></a>支援 <a href="http://mz026.logdown.com/posts/308147-hello-redux-2-3-server-rendering" target="_blank" rel="external">Universal Rendering</a></h2><p>送 API 這件事情，其實和 React Universal Rendering 息息相關。為什麼呢？因為在做 universal rendering 的時候，web server 必須向 API server 拿要 render 的 data，而這部份的程式其實和前端是共用的。但當這件事情發生在 server 上的時候，我們會多出一個需求：就是在 server 上要知道什麼時候 data 才全部都拉下來了，這時候才可以把 React components render 出來送給前端。</p>
 <h2 id="Side-Effect-Friendly"><a href="#Side-Effect-Friendly" class="headerlink" title="Side Effect Friendly"></a>Side Effect Friendly</h2><p>API request 常常伴隨著 application 的 side effect。好比說，在 login 的 request 成功之後，我們要把 store 裡面的 <code>currentUser.isLoggedIn</code> 更新成 <code>true</code> 之外，要把 user route 到另一個頁面。這時候 “route 到另一個頁面” 就稱之為這個 request 的 side effect。我們希望把 “送API request” 這件事抽象出來之後，可以讓我們有一個明確的地方來管理這類的 side effects。</p>
 <h2 id="API-連發"><a href="#API-連發" class="headerlink" title="API 連發"></a>API 連發</h2><p>在某些時候，API 的設計並不一定會和前端的使用流程密切的貼合。也就是說，在這個時候我們在 web app 這端要呈現出一個畫面或者完成一個行為的時候，有可能要連續送出一個以上互相有關聯的 API call。例如說，第一個 API 可能是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">url: /me [GET]</div><div class="line">returns:</div><div class="line"></div><div class="line">&#123;</div><div class="line">  &quot;id&quot;: 1,</div><div class="line">  &quot;blog_id&quot;: 1234</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -45,7 +45,7 @@
 </ul>
 <h1 id="How"><a href="#How" class="headerlink" title="How"></a>How</h1><p>綜合以上的各點需求，於是我們決定把這個東西用 redux middleware 的型式抽象出來。好吧，其實不是。最一開始其實我只是想做到 async to sync 和 universal rendering 而已，於是就把 <a href="https://github.com/reactjs/redux/blob/master/examples/real-world/middleware/api.js" target="_blank" rel="external">redux real word example 裡面的 api middleware </a>拿來改，想不到後來功能越加越多才變成現在這個樣子 XD</p>
 <p>而在實作方面，有一些有趣的地方想跟大家介紹一下。</p>
-<h2 id="Async-to-Sync"><a href="#Async-to-Sync" class="headerlink" title="Async to Sync"></a>Async to Sync</h2><p>這個部份是 redux-api-middleman 的最根本的部份。透過它，在 action creator 裡面要發一個 request 就會變成這樣：</p>
+<h2 id="Async-to-Sync"><a href="#Async-to-Sync" class="headerlink" title="Async to Sync"></a>Async to Sync</h2><p>這個部份是 <a href="https://github.com/CodementorIO/redux-api-middleman" target="_blank" rel="external">redux-api-middleman</a> 的最根本的部份。透過它，在 action creator 裡面要發一個 request 就會變成這樣：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; CALL_API &#125; <span class="keyword">from</span> <span class="string">'redux-api-middleware'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> GET_MY_INFO_SUCCESS = <span class="built_in">Symbol</span>(<span class="string">'GET_MY_INFO_SUCCESS'</span>)</div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getMyInfo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    [CALL_API]: &#123;</div><div class="line">      method: <span class="string">'get'</span>,</div><div class="line">      path: <span class="string">'/me'</span>,</div><div class="line">      successType: GET_MY_INFO_SUCCESS</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>這樣一來，發 request 給 server 這件事情在寫法上，就從本來的 async 的型式變成 return 一個帶有 <code>CALL_API</code> 這個 key 的 action。而真正發 request 出去的這件事情則在 middleware 裡面完成。</strong></p>
 <p>這樣的做法可以同時讓實作和測試都變得相當單純。</p>
@@ -83,7 +83,7 @@
 <li><code>body</code></li>
 </ul>
 <p>而在每一個 request 裡面，這三個回傳出來的 key 就會在每一個 API request 被當成 default 的參數被放進去了。</p>
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>發 API 這件事情是 web app 裡面最常做的事情之一，但它的 async 的特性也常常在實作或測試的時候令人頭大。<br>目前這樣的抽象方法在我們日常開發的production app 都還算OK。如果有任何想法都非常歡迎 pull request 阿！！</p>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>發 API 這件事情是 web app 裡面最常做的事情之一，但它的 async 的特性也常常在實作或測試的時候令人頭大。<br>目前這樣的抽象方法在我們日常開發的production app 都還算OK。如果有任何想法都非常歡迎 <a href="https://github.com/CodementorIO/redux-api-middleman" target="_blank" rel="external">pull request</a> 阿！！</p>
 ]]></content>
 
     <summary type="html">
