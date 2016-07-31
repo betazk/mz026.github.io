@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
 
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-30T16:57:25.394Z</updated>
+  <updated>2016-07-31T13:55:02.562Z</updated>
   <id>http://yoursite.com/</id>
 
   <author>
@@ -19,8 +19,8 @@
     <title>Redux API Middleman</title>
     <link href="http://yoursite.com/20160731/redux-api-middleman/"/>
     <id>http://yoursite.com/20160731/redux-api-middleman/</id>
-    <published>2016-07-30T16:57:25.406Z</published>
-    <updated>2016-07-30T16:57:25.394Z</updated>
+    <published>2016-07-31T13:55:02.570Z</published>
+    <updated>2016-07-31T13:55:02.562Z</updated>
 
     <content type="html"><![CDATA[<p>最近和同事們一起合作，做出了一個把 “送 API request” 這件事情抽象出來的 redux middleware: <a href="https://github.com/CodementorIO/redux-api-middleman" target="_blank" rel="external">redux-api-middleman</a></p>
 <p>這個東西本來是在 <a href="https://github.com/mz026/universal-redux-template" target="_blank" rel="external">redux-universal-template</a> 裡面的一個 middleware，但隨著功能越加越多，再者有別的 project 也要用到一樣的東西，所以索性把它抽出來變成一個獨立的 <a href="https://www.npmjs.com/package/redux-api-middleman" target="_blank" rel="external">npm package</a></p>
