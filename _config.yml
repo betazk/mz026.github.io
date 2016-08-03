@@ -1,10 +1,10 @@
 # Site settings
-title:       Pixyll
+title:       "mz026's blog"
 email:       your_email@example.com
 author:      John Otander
 description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
 baseurl:     ""
-url:         "http://pixyll.com"
+url:         "/"
 date_format: "%b %-d, %Y"
 
 # Google services
@@ -37,7 +37,7 @@ facebook_appid:
 facebook_comments_number: 10
 
 # Social icons
-github_username:
+github_username: mz026
 bitbucket_username:
 stackoverflow_id:
 twitter_username:
@@ -52,11 +52,11 @@ paypal_url:
 flattr_button:
 
 # Post sharing icons
-show_sharing_icons: false
+show_sharing_icons: true
 # Change to 'true' to enable individual icons
-share_facebook: false
-share_twitter: false
-share_googleplus: false
+share_facebook: true
+share_twitter: true
+share_googleplus: true
 share_linkedin: false
 share_digg: false
 share_tumblr: false
