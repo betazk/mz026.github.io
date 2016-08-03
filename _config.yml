@@ -1,7 +1,7 @@
 # Site settings
 title:       "mz026's blog"
-email:       your_email@example.com
-author:      John Otander
+email:
+author:      mz026
 description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
 baseurl:     ""
 url:         "/"
@@ -11,7 +11,7 @@ date_format: "%b %-d, %Y"
 google_verification:
 # Use either direct GA implementation or set up GTM account
 # - using both will skew your data (leave blank to not use at all)
-google_analytics:
+google_analytics: UA-81867175-1
 google_tag_manager:
 # Bing services
 bing_verification:
@@ -20,7 +20,7 @@ bing_verification:
 animated:             false
 show_related_posts:   false
 show_post_footers:    false
-show_social_icons:    false
+show_social_icons:    true
 ajaxify_contact_form: false
 enable_mathjax: false
 extended_fonts: false
@@ -52,11 +52,11 @@ paypal_url:
 flattr_button:
 
 # Post sharing icons
-show_sharing_icons: true
+show_sharing_icons: false
 # Change to 'true' to enable individual icons
-share_facebook: true
-share_twitter: true
-share_googleplus: true
+share_facebook: false
+share_twitter: false
+share_googleplus: false
 share_linkedin: false
 share_digg: false
 share_tumblr: false
