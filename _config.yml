@@ -30,6 +30,9 @@ enable_anchorjs: false
 # (leave blank to disable Disqus)
 disqus_shortname: mz026blog
 
+# Addthis
+addthis_id: ra-579db5d139c8ad2a
+
 # Facebook Comments plugin
 # (leave blank to disable Facebook Comments, otherwise set it to true)
 facebook_comments:
