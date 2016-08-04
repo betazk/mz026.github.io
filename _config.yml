@@ -33,6 +33,10 @@ disqus_shortname: mz026blog
 # Addthis
 addthis_id: ra-579db5d139c8ad2a
 
+# tagging
+tag_page_layout: tag_page
+tag_page_dir: tag
+
 # Facebook Comments plugin
 # (leave blank to disable Facebook Comments, otherwise set it to true)
 facebook_comments:
