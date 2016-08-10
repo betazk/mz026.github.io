@@ -40,6 +40,9 @@ layout: default
   {% endfor %}
 </div>
 
+{% if site.shareaholic %}
+<div class='shareaholic-canvas' data-app='share_buttons' data-app-id='{{ site.shareaholic.app_id }}'></div>
+{% endif %}
 
 {% if site.disqus_shortname %}
   <div id="disqus_thread"></div>
