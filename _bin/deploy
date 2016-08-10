@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+puts "bulid site..."
+system "bundle exec jekyll build"
+puts "upload to server..."
+system "rsync -r _site/ blog.mz026.rocks:/home/mz026/blog"
+puts "done!"
