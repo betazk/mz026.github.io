@@ -31,12 +31,12 @@ enable_anchorjs: true
 disqus_shortname: mz026blog
 
 # Addthis
-# addthis_id: ra-579db5d139c8ad2a
+addthis_id: ra-579db5d139c8ad2a
 
-# Shareholic
-shareaholic:
-  site_id: 341572052a3fa4c2bb75e5ffa1874029
-  app_id: 25491838
+# # Shareholic
+# shareaholic:
+#   site_id: 341572052a3fa4c2bb75e5ffa1874029
+#   app_id: 25491838
 
 # tagging
 tag_page_layout: tag_page
