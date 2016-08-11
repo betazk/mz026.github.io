@@ -2,6 +2,7 @@
 layout: post
 title: Redux API Middleman
 comments: true
+description: "最近和同事們一起合作，做出了一個把 \"送 API request\" 這件事情抽象出來的 redux middleware: redux-api-middleman"
 tags:
   - redux
   - react
