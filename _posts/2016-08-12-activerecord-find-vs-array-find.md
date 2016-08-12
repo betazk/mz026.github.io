@@ -26,9 +26,10 @@ end
 
 # ActiveRecord::Relation#find v.s Array#find
 
-`ActiveRecord::Relation` 和 `Array` 這兩個 class 都有 `find` 這個 method [(註1)](#section)。直覺上兩者的差異就是前面的應該是會送 database query 出去而後者不會，而實際上也是這樣 ~(可以轉台惹)~
+`ActiveRecord::Relation` 和 `Array` 這兩個 class 都有 `find` 這個 method [(註1)](#section)。直覺上兩者的差異就是前面的應該是會送 database query 出去而後者不會，而實際上也是這樣 ~~可以轉台惹~~
 
 但比較討厭的地方就是有些時候你以為 ActiveRecord 不會送了，但他還會!
+這種誤會有時候在 loop 的時候，就會造成類似 [n+1 query](http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations) 的結果，就是噴了一堆 db query 出去。
 
 好比說我們有一個 user pool:
 
@@ -80,7 +81,8 @@ pry(main)> user_pool_array.find(1)
 => #<Enumerator: ...>
 ```
 
-呃…怎麼好像有點怪怪 der
+呃…怎麼好像有點怪怪 der...
+
 看了 [doc](http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-find) 之後才發現，原來是 `Enumerable#find` 的介面不一樣阿!
 
 ```
@@ -98,6 +100,8 @@ pry(main)> user_pool.find {|u| u.id == 1}
 ```
 
 什麼!!這是什麼巫術!!
+**把 block pass 給 `ActiveRelation#find` 之後，他就不送 db query 了!!**
+
 實際上殺進 [source code](https://github.com/rails/rails/blob/v4.2.7.1/activerecord/lib/active_record/relation/finder_methods.rb#L67-L73) 一看，才發現原來如果給了 block 的話，就會先轉成 array。原乃奴此! [(註3)](#section-2)
 
 ```ruby
