@@ -2,7 +2,8 @@
 layout: post
 title: Rails Race Condition Test With RSpec
 comments: true
-description: "Rails Race Condition Test With RSpec"
+description: "這陣子在寫 Rails 的時候，陸續遇到了 race condition 的狀況。在解決它的過程中，也同時想要用 unit test 把它保護起來。
+於是有一些心得記下來和大家分享"
 tags:
   - rails
   - activerecord
