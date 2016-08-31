@@ -9,7 +9,7 @@ tags:
   - activerecord
   - rspec
   - testing
-  - "race condition"
+  - "race-condition"
 ---
 
 
