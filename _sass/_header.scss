@@ -10,6 +10,10 @@
   background-image: none;
 }
 
+.site-title-wrapper {
+  display: inline;
+  font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+}
 .site-header .site-title {
   font-size: $h2;
 }
