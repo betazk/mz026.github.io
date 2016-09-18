@@ -2,7 +2,8 @@
 layout: post
 title: 大戰 Rails Connection Leak
 comments: true
-description: "最近和同事們一起合作，做出了一個把 \"送 API request\" 這件事情抽象出來的 redux middleware: redux-api-middleman"
+description: "前陣子我們的 database 遇到了疑似 connection leak 的問題。在經過一番苦戰之後，總算讓 server 恢復了平靜。
+這篇文章會紀錄下整個故事，希望讓看到的人不用再踩同樣的雷一次"
 tags:
   - rails
   - "connection-leak"
