@@ -21,7 +21,7 @@ tags:
 
 ```ruby
 
-users = User.where(id: user_id_pool).eager(:user_support_messages)
+users = User.where(id: user_id_pool).includes(:user_support_messages)
 data = users.map do |user|
   {
     user: user,
