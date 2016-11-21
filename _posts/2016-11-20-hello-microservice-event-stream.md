@@ -78,7 +78,7 @@ EventPublisher.publish({
 })
 ```
 
-這樣的作法，在概念上很像 javascript 的 event，或是 design pattern 裡的 [ovserver pattern](https://en.wikipedia.org/wiki/Observer_pattern)。
+這樣的作法，在概念上很像 javascript 的 event，或是 design pattern 裡的 [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern)。
 在概念上我們可以發現，後者的做法裡面，**我們 decouple 了 user service 和 mailing service。
 也就是說，對於 user service 來說，它是不知道 mailing service 的存在的。**
 
