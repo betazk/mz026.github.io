@@ -163,3 +163,12 @@ RabbitMQ 是一個功能複雜又強大的 message broker。底下其實是 foll
 我們目前在選擇的時候，社群的支援度還是一個很大的考量點。
 
 而不管最後選用了什麼選項，在 application layer 方面，如果可以的話盡量把程式設計成不要讓這些選擇太緊密的和 application couple 在一起應該會是不錯的作法。
+
+## [update-161123]
+
+在文章發表之後，有好多朋友建議除了 RabbitMQ 和 SQS+SNS 之外，也可以參考看看 [Kafka](https://kafka.apache.org)。
+說來慚愧，當初在 survey 的時候看到 Kafka 只有瞄一眼，當下覺得好像 usercase 不太符合就先跳過惹。
+這幾天再稍微認真一點看了[一些](https://www.quora.com/What-are-the-differences-between-Apache-Kafka-and-RabbitMQ/answer/Stuart-Charlton-1?srid=hmMp)[比較](http://yurisubach.com/2016/05/19/kafka-or-rabbitmq/)，
+從這些文章歸納起來，大概有以下的心得：
+
+Kafka 的強項在於可以承載的 producer 流量相當大(producer-centric)、可以保証順序性，而 RabbitMQ 則是在於有比較多的 routing 選擇，在 consumer 消化 message 的情境比較多彈性(broker-centric)。也因為這樣，在 usecase 方面，Kafka 比較常見於做 log analysis, 或者是 performance metric 相關的東西，因為流量和順序性正是這類的 usecase 不可或缺的一環。
