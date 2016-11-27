@@ -154,3 +154,5 @@ https://another-domain.com/site-a/path
   - [Astonishing disappointment with AWS’s API Gateway](https://medium.com/@hackupstate/astonishing-disappointment-with-awss-api-gateway-a14ea29458dc#.g3amkrn2d)
 
 - [Digital Ocean HAProxy Tutorials](https://www.digitalocean.com/community/tutorial_series/load-balancing-wordpress-with-haproxy) (請無視 wordpress 字眼)
+
+- ["雖然說作法很令人不解，但設定可以參考"的一篇 blog](https://pilot.co/blog/hosting-multiple-heroku-apps-on-a-single-domain/)
