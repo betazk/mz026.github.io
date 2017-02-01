@@ -116,7 +116,7 @@ Uncaught SyntaxError: Unexpected Token .
 - 改動 webpack config
 - 把 node process kill 掉重開，這個步驟包括了 gulp，webpack，node server
 
-但在確定這個 issue 和 server render 無關之後，就可以直接跳過 gulp，node server 的步驟，直接讓 webpack-dev-server build/serve 一個靜態的 hmtl 讓我們跑 javascript。
+但在確定這個 issue 和 server render 無關之後，就可以直接跳過 gulp，node server 的步驟，直接讓 webpack-dev-server build/serve 一個靜態的 html 讓我們跑 javascript。
 
 ## 所以 DefinePlugin 到底是怎麼了呢？
 
