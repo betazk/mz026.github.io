@@ -63,7 +63,7 @@ Uncaught SyntaxError: Unexpected Token .
 
 1) 於是直接用 `webpack-dev-server` serve 一個純前端的 app, 發現問題還是在。所以先不管 server rendering 了。
 
-2) 於是我把程式的進入點[`app.js`](https://github.com/mz026/universal-redux-template/blob/798db78/app/app.js) 的東西全部 comment 掉，發現可以work！
+2) 於是我把程式的進入點 [app.js](https://github.com/mz026/universal-redux-template/blob/798db78/app/app.js) 的東西全部 comment 掉，發現可以work！
 於是發現，問題的點應該不單純只是 config 的關係，而是和 application 內的內容有關。
 
 3) 接著，把進入點的東西慢慢地加回來。既然出現 error 的行數是在 react 的 code 裡面，那先 import 個 react 好了。
