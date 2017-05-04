@@ -54,14 +54,14 @@ TODO: graph
 
 > 如果說世界上有什麼東西比 legacy code 還要可怕的話，那一定是 legacy schema。
 
-~~但如果說，世界上有什麼東西比 legacy schema 還要可怕的話，那就是 **legacy code + legacy schema**~~
+> 但如果說，世界上有什麼東西比 legacy schema 還要可怕的話，那就是 **legacy code + legacy schema**
 
 Legacy schema 可怕的地方在於，application code 基本上都是圍繞著它建立的，
 如果整份程式是根據一個不合時宜的資料結構設計的話，
 那就會要在各個地方用很多特例或者是晦澀難懂的判斷來讓整個行為是正常的。
 這樣一來在維護上自然就會造成很大的負擔。
 
-所以如果有機會整理 legacy issue 的話，**legacy schema 必須死！**
+所以如果有機會整理 [legacy issue](http://blog.mz026.rocks/20161210/working-happily-with-legacy-code) 的話，**legacy schema 必須死！**
 
 ## 目標與策略們
 
@@ -74,7 +74,7 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 所以大多的時候是要做下去才會知道裡面有多可怕的東西要處理。
 
 但顯然地，無法估計時程的工作是不能接受的。
-這個時候我們退一步去想，估計時程的目的是什麼呢？（好像一個人生的問題）
+這個時候我們退一步去想，估計時程的目的是什麼呢？（這根本一個人生的問題吧）
 
 **估計時程的目的，有一大部份是為了讓其他的工作可以做相對應的安排。**
 
@@ -89,12 +89,12 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 所以無法抽身來幫忙。
 
 再者，因為搬動的東西因為還沒 release 到 production，
-但一路上同一份 code 有其他的 feature 正在演進，所以這個搬動勢必要一路狂解 conflict，很不方便。
+但一路上同一份 code 有其他的 feature 正在演進，所以這個搬動勢必要一路狂解 conflict，[很不方便](http://zh.pttpedia.wikia.com/wiki/%E5%BB%BA%E8%AD%B0%E5%8D%83%E8%90%AC%E5%88%A5%E9%80%99%E6%A8%A3%E5%81%9A%E2%80%A6%E4%B8%8A%E6%AC%A1%E6%9C%89%E4%BA%BA%E9%80%99%E6%A8%A3%E2%80%A6%E7%B5%90%E6%9E%9C%E2%80%A6%E5%B0%B1%E5%B0%91%E4%B8%80%E5%80%8B%E2%80%A6%E5%BE%88%E4%B8%8D%E6%96%B9%E4%BE%BF)。
 
 但上面的狀況如果我們把三個星期的搬動，切成很多可以立刻 release 的小塊，
 即使整個搬動的時程還是無法估計，但眼前的小塊卻是相對容易估計的。
 所以如果在搬動的過程當中有緊急的事情發生，這個人可以把眼前的小塊立刻 release 出去之後立刻來幫忙。
-這樣人力的調度就會變得相當有彈性。即使整個搬動的時程是拉長的，但換來人力的彈性應該是相當珍貴且划算的。
+這樣人力的調度就會變得相當有彈性。即使整個搬動的時程和工作量是拉長的，但換來人力的彈性應該是相當珍貴且划算的。
 
 
 但上面的目標說得容易阿！事實上，要把一個 scope 很大的東西切成可以隨時 release 到 production 的小單元其實並不容易。
@@ -174,15 +174,80 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 
 **所以在大部份的狀況下，我們會先搬 client creation endpoint，再來 migrate data。**
 
-但是這樣一來，我們就會遇到下一個問題：Client Reading Endpoint 要什麼時候搬？
+但是這樣一來，我們就會遇到下一個問題：*Client Reading Endpoint 要什麼時候搬？*
+
+### 複雜的 Reading Operation v.s. 不一致(Inconsistent) 的 Reading Operation
+
+在上面的情況下，"搬動 Reading Endpoint" 有兩個選擇：
+
+- 在 migrate data 之前
+- 在 migrate data 之後
+
+如果我們在 *migrate data 之前*，就先讓 client 去讀新版的 data 的話，那這時候：
+
+- 當 client 建立了一筆新的 record, 他可以看到正確的結果
+- 但是*舊的 data client 有可能會讀不到*（因為正在被 migrate)
+
+反之，如果我們在 *migrate data 之後*再讓 client 去讀新版的 data 的話，那這時候：
+
+- 當 client 建立了一筆新的 record, *他會看不到結果*（因為這時候 client 還是去讀舊的 data , 但新建立的 data 是存在新的地方）
+- 舊的 data 可以讀到
+
+又如果，我們完全不想犧牲任何的讀取的一致性的話，那我們在 server side 就要建立更複雜的 reading API, *同時去讀新的和舊的 data, 然後再把結果 merge 起來回傳給 client*。
+
+在不同的狀況之下，我們會要做不同的取捨。一些可能的判斷標準有像是這個資料本身的性質，data migration 預期花費的時間，和複雜的 reading API 的難度等等。
+
+假設今天這個 data 是按讚的紀錄，那可能可以用第二種作法。因為建立了新資掉之後，可以在 client 用 UI 先讓使用者暫時不會發現不一致的讀取。
+如果 data migration 的時間很短，那可能可以使用第一種作法，因為不一致的時間就只有一下下。
+又如果這些 data 非常的重要，像是金錢的交易紀錄等等，這時候我們可能不能接受有任何 data 不一致的狀況，所以勢必要建立比較複雜的讀取 API 同時兼容新、舊的資料。
+
+**簡而言之，要認真的考量資料的性質和可以容忍的限度，然後做出最適合的決定。**
 
 
 
-- idempotent import <> creation availability
-- reading operation with both version <> inconsistent reading
-- if reading process of a certain resource is long and deep, create both version
+### Robust Migration v.s. Creation Availability
+
+在上面的情境裡，有一個步驟是要把舊的 data migrate 到新的地方去。
+在某一些時候，這個行為並不是那麼的單純。**因為在 migrate data 的同時，新的 data 也正在被寫入。**
+所以如果資料本身有某些限制的話(像是 unique constraint), 就有可能會遇到 migrate 失敗的問題。
+
+舉例來說，假設我們今天要 migrate 的是使用者對文章按讚的資料。而在這個 table 裡面我們有建立 `(user_id, post_id)` 的 unique constraint。
+也就是說，同一個 user 是不能對同一個文章按讚兩次的。
+
+這時候如果我們舊有的 data 有十萬筆，其中第八萬筆是 `(user_id = 1, post_id = 1)` 這樣的 data。
+而當我們 migrate 到第五萬筆的時候，又有一筆 `(user_id = 1, post_id = 1)` 被寫入到新的 table。
+在這個當下，因為舊的 data 的第八萬筆還沒有被寫入新的 table, 所以這個新的寫入是合法的。
+但是當我們 migrate 到第八萬筆的時候，我們就會遇到 unique constraint 的衝突了。
+
+這個狀況只是其中的一個例子，隨著不同的資料類型，可能會遇到各種 migration 和新寫入的衝突。
+要解決這樣的問題，其實就是要建立一個比較聰明的 migration，讓這個操作可以應付同一時間的寫入。
+而技術上要做到這件事的難度，則會和 data 的存放方式、現有的 code quality、甚至是時程的規畫等等各種因素有關。
+
+如果面對到這類的問題，而考量的結果是不要建立聰明的 migration 的話，那就必須要犧牲一段時間的 creation availability。
+意思是說，我們就在 migrate data 的這段時間，暫時不讓使用者寫入新的 data。這樣就可以避免掉剛才的問題了。
+
+而就像任何的技術選擇一樣，要考慮各種不同的因素。
+以我們遇到的狀況，像是有一類型類似按讚的 data，我們就是這樣來 migrate 的。
+因為簡單版本的 migration 很容易實作，並且跑起來很快。
+讓使用者在一小段時間（以我們的狀況大約是十秒）先不能按讚一下，是可以接受的狀況。
+
+
+### 如果 data 的覆蓋範圍又深又廣，可以考慮在搬家的過程中，讓新舊 data 並存一下
+
+這個點是我們這次的搬動過程中，我覺得最有價值的一點。雖然其實道理很單純，但是有了它，才可以讓這個漫長的過程有個開始。
+
+通常我們的 data 會有階層的關係。而最上層的那些 data，常常很多東西都跟他有關。
+例如說我們有 `user`, `post`, `comment`, `like` 這些 data，通常所有東西都和 `user`(最上層的) 有關。
+所以如果我們要把 `user` 搬家的時候 (假設要搬到一個新的 table 叫 `customer` 好了), 如果直接把 `user` 移除掉，那其他的 data 就很難再運作了。
+但是如果我們又不想要一次把 `post`, `comment`, `like` 全部搬好再 release 的話該怎麼辦呢？
+
+這時候我們可以在建立一個 `customer` 的時候，同時也建立一個對應的 `user`。這樣一來，我們就可以在搬動其他 data 之前，先 release "`user` 到 `customer`" 的搬動。甚至還可以延後其他 side effect 搬動的時間。
+這樣一來，在分配小塊的 release 的時候會增加很多彈性。
 
 
 ## 後記
 
-- 不管怎樣，要搬家就是很累
+雖然說好像有企圖整理出一些東西，但其實不管怎樣，搬家就是很辛苦 der。
+每一個步驟都會遇到不同的狀況。**但我覺得在各種方法和策略之上，更重要的是要衡量各種的狀況做出最適合的取捨。**
+像是複雜度、功能不完整的時間 / 容忍度、時程等等。
+畢竟精準地分析現況做出取捨正是攻城獅的本質吧！
