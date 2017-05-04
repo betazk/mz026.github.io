@@ -49,7 +49,15 @@ tags:
 **所以我們針對這次要擴充的內容設計出符合現有使用情境的 database schema，
 然後把這些功能做在新的 database schema 上面，並且把其他不用搬動的功能留在原地。**
 
-TODO: graph
+Before:
+
+{: .center}
+![migrate-legacy-schema--before](/images/migrate-legacy-schema/before.png)
+
+After:
+
+{: .center}
+![migrate-legacy-schema--after](/images/migrate-legacy-schema/after.png)
 
 
 ## 為什麼 legacy schema 很可怕？
