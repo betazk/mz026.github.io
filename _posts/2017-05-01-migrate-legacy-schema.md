@@ -5,7 +5,9 @@ comments: true
 description: ""
 tags:
   - "legacy-code"
+  - "legacy-schema"
   - programming
+  - migration
 ---
 
 這陣子，Codementor 的主要服務之一 "1-1 Live Session" 要做一個架構上的大調整。主要的原因是我們想要把不同的服務之間相互整合，
@@ -214,8 +216,21 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 舉例來說，假設我們今天要 migrate 的是使用者對文章按讚的資料。而在這個 table 裡面我們有建立 `(user_id, post_id)` 的 unique constraint。
 也就是說，同一個 user 是不能對同一個文章按讚兩次的。
 
-這時候如果我們舊有的 data 有十萬筆，其中第八萬筆是 `(user_id = 1, post_id = 1)` 這樣的 data。
-而當我們 migrate 到第五萬筆的時候，又有一筆 `(user_id = 1, post_id = 1)` 被寫入到新的 table。
+這時候如果我們舊有的 data 有十萬筆，其中第八萬筆是
+
+```
+(user_id = 1, post_id = 1)
+```
+
+這樣的 data。
+
+而當我們 migrate 到第五萬筆的時候，又有一筆
+
+```
+(user_id = 1, post_id = 1)
+```
+
+被寫入到新的 table。
 在這個當下，因為舊的 data 的第八萬筆還沒有被寫入新的 table, 所以這個新的寫入是合法的。
 但是當我們 migrate 到第八萬筆的時候，我們就會遇到 unique constraint 的衝突了。
 
@@ -223,8 +238,8 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 要解決這樣的問題，其實就是要建立一個比較聰明的 migration，讓這個操作可以應付同一時間的寫入。
 而技術上要做到這件事的難度，則會和 data 的存放方式、現有的 code quality、甚至是時程的規畫等等各種因素有關。
 
-如果面對到這類的問題，而考量的結果是不要建立聰明的 migration 的話，那就必須要犧牲一段時間的 creation availability。
-意思是說，我們就在 migrate data 的這段時間，暫時不讓使用者寫入新的 data。這樣就可以避免掉剛才的問題了。
+**如果面對到這類的問題，而考量的結果是*不要建立聰明的 migration* 的話，那就必須要犧牲一段時間的 creation availability。
+意思是說，我們就在 migrate data 的這段時間，暫時不讓使用者寫入新的 data。這樣就可以避免掉剛才的問題了。**
 
 而就像任何的技術選擇一樣，要考慮各種不同的因素。
 以我們遇到的狀況，像是有一類型類似按讚的 data，我們就是這樣來 migrate 的。
@@ -250,4 +265,5 @@ Legacy schema 可怕的地方在於，application code 基本上都是圍繞著�
 雖然說好像有企圖整理出一些東西，但其實不管怎樣，搬家就是很辛苦 der。
 每一個步驟都會遇到不同的狀況。**但我覺得在各種方法和策略之上，更重要的是要衡量各種的狀況做出最適合的取捨。**
 像是複雜度、功能不完整的時間 / 容忍度、時程等等。
-畢竟精準地分析現況做出取捨正是攻城獅的本質吧！
+
+**畢竟精準地分析現況做出取捨正是攻城獅的本質吧！**
