@@ -4,7 +4,7 @@ email:
 author:      mz026
 description: "Happiness is real only when shared"
 baseurl:     ""
-url:         "http://blog.mz026.rocks"
+url:         "https://blog.mz026.rocks"
 date_format: "%b %-d, %Y"
 
 # Google services
