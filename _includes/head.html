@@ -49,7 +49,17 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif %}">
     <meta property="og:description" content="{% if page.description %}{{ page.description | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
-    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+
+    {% capture page_time %}{{page.date | date: '%y%m%d'}}{% endcapture %}
+    {% assign ssl_transfer_time = '170506' %}
+
+
+    {% if page_time < ssl_transfer_time %}
+      <meta property="og:url" content="{{ site.http_url }}{{ page.url }}">
+    {% else %}
+      <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    {% endif %}
+
     <meta property="og:site_name" content="{{ site.title | xml_escape }}">
 
     <!-- Twitter Card -->
@@ -91,5 +101,14 @@
     {% if site.shareaholic %}
       <script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='{{ site.shareaholic.site_id }}' async='async'></script>
     {% endif %}
-    {% seo title=false %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ page.title }}",
+        "datePublished": "{{page.date}}",
+        "description": "{{page.description}}",
+        "url": "{{site.url}}{{page.url}}"
+      }
+    </script>
 </head>

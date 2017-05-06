@@ -5,6 +5,7 @@ author:      mz026
 description: "Happiness is real only when shared"
 baseurl:     ""
 url:         "https://blog.mz026.rocks"
+http_url:    "http://blog.mz026.rocks"
 date_format: "%b %-d, %Y"
 
 # Google services
@@ -120,7 +121,6 @@ sass:
 gems:
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-sitemap
+
 # https://github.com/jekyll/jekyll/issues/2938
 exclude: [vendor]

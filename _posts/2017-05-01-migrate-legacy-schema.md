@@ -2,7 +2,7 @@
 layout: post
 title: 快樂搬移 Legacy Schema
 comments: true
-description: ""
+description: "這陣子，Codementor 的主要服務之一 '1-1 Live Session' 要做一個架構上的大調整。主要的原因是我們想要把不同的服務之間相互整合，基本上就是要擴充原有的產品邏輯和行為，讓它變成一個更廣義的概念。而在程式上，自然就需要相對應的改動。'1-1 Live Session' 這部份的程式碼是我們最早的產品之一，可想而知的是這部份要擴充起來一路上會要還掉不少技術債。"
 tags:
   - "legacy-code"
   - "legacy-schema"

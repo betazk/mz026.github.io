@@ -86,7 +86,9 @@ layout: default
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{site.addthis_id}}"></script>
 <script type="text/javascript" charset="utf-8">
   var addthis_share = {
-    url: document.location.href,
+    url: (function() {
+      return document.querySelectorAll("meta[property='og:url']")[0].content
+    }()),
     title: '{{ page.title }}'
   }
 </script>
