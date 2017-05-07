@@ -11,8 +11,11 @@ tags:
 ---
 
 耶！總算把 blog 加上 https 惹！看到綠色的小鎖頭就覺得爽！
-在這篇文章裡面，要記錄一下安裝的過程和遇到的問題們！
 
+{: .center}
+![](https://media.giphy.com/media/axu6dFuca4HKM/giphy.gif)
+
+在這篇文章裡面，要記錄一下安裝的過程和遇到的問題們！
 
 ## Let's Encrypt
 
@@ -118,6 +121,7 @@ server {
 
 下面是 `_head.html` 的部份內容：
 
+{% raw %}
 ```
 {% capture page_time %}{{page.date | date: '%y%m%d'}}{% endcapture %}
 {% assign ssl_transfer_time = '170506' %}
@@ -128,6 +132,7 @@ server {
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 {% endif %}
 ```
+{% endraw %}
 
 **2: 修改 Addthis 的 javascript 設定**
 
