@@ -13,7 +13,7 @@ tags:
 耶！總算把 blog 加上 https 惹！看到綠色的小鎖頭就覺得爽！
 
 {: .center}
-![](https://media.giphy.com/media/axu6dFuca4HKM/giphy.gif)
+![](https://media.giphy.com/media/26tPo1I4XyWzIBjFe/giphy.gif)
 
 在這篇文章裡面，要記錄一下安裝的過程和遇到的問題們！
 
@@ -106,7 +106,7 @@ server {
 
 ### Addthis 的 facebook like 數字歸零了 QQ
 
-在每篇文章的最下面，我有放上 [Addthis](TODO:LINK) 作為社群分享的外掛。
+在每篇文章的最下面，我有放上 [Addthis](http://www.addthis.com/) 作為社群分享的外掛。
 但是在換到 https 之後，上面本來的數據都歸零了 QQ
 原因是因為本來的數據是記在 `http://...` 這些網址上的，
 但現在這些 `http` 開頭的網址，都被我用 `301` 導到 `https` 的版本，
