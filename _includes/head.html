@@ -53,7 +53,6 @@
     {% capture page_time %}{{page.date | date: '%y%m%d'}}{% endcapture %}
     {% assign ssl_transfer_time = '170506' %}
 
-
     {% if page_time < ssl_transfer_time %}
       <meta property="og:url" content="{{ site.http_url }}{{ page.url }}">
     {% else %}
