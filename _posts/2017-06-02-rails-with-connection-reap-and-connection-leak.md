@@ -12,7 +12,7 @@ tags:
   - ActiveRecord
 ---
 
-在之前遇到[疑似 rails connection leak](/20160917/rails-connection-leak)之後，就一直大概知道 [ActiveRecord 的 `with_connection`](http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/ConnectionPool.html#method-i-with_connection) 可以避免 connection leak。前陣子在設定 RabbitMQ 的時候，出現了 connection pool timeout 的 error，在 debug 的時候才發現原來我好像一直沒有親眼看過 Rails leak connection 的時候會長得怎樣 XD
+在之前遇到[疑似 rails connection leak](/20160917/rails-connection-leak)之後，就一直大概知道 [ActiveRecord 的 with_connection](http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/ConnectionPool.html#method-i-with_connection) 可以避免 connection leak。前陣子在設定 RabbitMQ 的時候，出現了 connection pool timeout 的 error，在 debug 的時候才發現原來我好像一直沒有親眼看過 Rails leak connection 的時候會長得怎樣 XD
 
 所以我試圖用一些方式讓 Rails leak database connection，發現好像沒有很單純阿。
 在這篇文章想要把一些嘗試的過程記錄下來和大家分享。
@@ -195,4 +195,10 @@ after re-checkout
 
 Connection count 的限制是在各種時候都必須要小心的事情。再加上 thread 這類有"時間"性質的變因加入之後，會讓整個東西變得更複雜。
 基本上我個人是比較偏好在寫 Rails 的時候，讓 library/framework 這層去控制 thread 比較令人安心一點。
+
 也就是說，**如果可以讓 thread 的複雜度不要隨著 application feature 的增加而增加會是比較好的狀況**。
+
+還有，雖然說難歸難，但是找答案的過程還真的是好有趣 der ㄎㄎ
+
+{: .center}
+![](https://media.giphy.com/media/3o7TKDMPKsakcn9NU4/giphy.gif)
