@@ -87,8 +87,8 @@ Server 是 host 在 Heroku 上面，並且有裝 Newrelic 來做效能的追蹤�
 
 另外，在這點上面還有一些出乎意料的小發現。就是**在同樣的機器之下，加上 clustering 並不一定會讓效能提升**。
 
-以我們的例子來說，在把無窮迴圈的bug解掉之後，我們的機器還是先停留在 heroku 的最高的等級(performance-l)。在加上 clustering 之後, 整體的速度反而變慢了。(不負責任)猜測是因為在很高的運算能力和 request 的 loading 不太大的狀況下，做 context switch 的 overhead 反而變成主要的瓶頸。
-但後來我們的就把機器 scale down 了，於是這時候加上 clustering 的效能就比沒加的時候好了。
+以我們的例子來說，在把無窮迴圈的bug解掉之後，我們的機器還是先停留在 heroku 的最高的等級(performance-l)。在加上 clustering 之後, 整體的速度反而變慢了。(不負責任)猜測是因為在很高的運算能力和 request 的 loading 不太大的狀況下，做 context switch 的 overhead 反而變成主要的瓶頸。也有可能和 Heroku 內部的實作有一些關係，但這些都只是猜測 orz。
+後來我們的就把機器 scale down 了，這時候加上 clustering 的效能就比沒加的時候好了。
 
 ### 2. 讓 bug 更容易被重現
 
