@@ -135,7 +135,7 @@ Code review 和 unit test，早睡早起一樣，都是屬於"大家都覺得要
 - 有人發 pull request 給我了，但我不知道
 - 有人在我的 pull request 上面留了 review note, 但我不知道
 
-所以時常發生了問來問去或等來等去的狀況。針對這個，我們接了一些 github 的 webhook 到 slack bot 上面，並且做了一些小工具可以讓這整個流程更順暢。詳請可以[看這邊](https://www.codementor.io/mz026/dont-miss-another-pull-request-6wsl2dzbp) XD
+所以時常發生了問來問去或等來等去的狀況。針對這個，我們接了一些 github 的 webhook 到 slack bot 上面，並且做了一些小工具可以讓這整個流程更順暢。詳情可以[看這邊](https://www.codementor.io/mz026/dont-miss-another-pull-request-6wsl2dzbp) XD
 
 ### 小結
 
