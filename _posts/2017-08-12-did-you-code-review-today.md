@@ -2,11 +2,13 @@
 layout: post
 title: 你今天 code review 了嗎？
 comments: true
-description: ""
+description: "在 Codementor，我們大約在一年多前認真把 code review 正式加入開發流程的一環。但過程當然不是一帆風順的。
+在這篇文章裡面，想要和大家分享我們對 code review 的認識、我們的作法和解決問題的過程。"
 tags:
   - "code-review"
   - "pull-request"
   - programming
+  - codementor
 ---
 
 Code review 和 unit test，早睡早起一樣，都是屬於"大家都覺得要做，但是常常做不到" 的事情之一。
