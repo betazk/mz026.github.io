@@ -199,5 +199,5 @@ Code review 如果可以有效執行的話，會是在很多地方都很有幫�
 
 ## 工商服務：全球最大的工程師教學平台上線囉！
 
-如果你看了這篇文章，覺得心有戚戚焉，很喜歡 Codementor 的文化和作法，歡迎加入我們！
+如果你看了這篇文章，覺得心有戚戚焉，很喜歡 [Codementor](https://www.codementor.io) 的文化和作法，歡迎加入我們！
 如果你會寫 Ruby on Rails，或者會寫 React/Redux，歡迎來[跟我們聊聊](mailto:hello+codereviewblog@codementor.io)！
