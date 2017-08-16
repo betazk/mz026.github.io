@@ -20,7 +20,7 @@ Code review 和 unit test，早睡早起一樣，都是屬於"大家都覺得要
 
 在大部份的軟體團隊裡面，code review 是相當重要的一環。根據 [wiki](https://en.wikipedia.org/wiki/Code_review) 上面的定義：
 
-> Code review is systematic examination (sometimes referred to as peer review) of computer source code. It is intended to find mistakes overlooked in the initial development phase, improving the overall quality of software.
+> Code review is systematic examination (sometimes referred to as peer review) of computer source code. It is intended to find mistakes overlooked in software development, improving the overall quality of software.
 
 它的目的是某種程度上預防可能的錯誤，和增進程式的品質。
 而除此之外，透過適當的 code review 更可以讓團隊裡面的每一位成員了解各個部份的程式碼。
