@@ -122,8 +122,8 @@ Golang 的 std library 是相對完整的，所以不一定要用 framework 也�
 ### Document
 
 文件的完整度和可讀性，我覺得是讓我感受比較深的地方。
-在用 [ruby base 的 library](https://github.com/mperham/sidekiq/wiki) 的時候都是可以看 guide 就咻咻咻設定好，
-但用 [golang 的 library](https://github.com/RichardKnop/machinery) 則是常常照著 doc 走就不 work, 最後要進去看 source code
+以 Background Job 來說，在用 [ruby base 的 library (sidekiq)](https://github.com/mperham/sidekiq/wiki) 的時候都是可以看 guide 就咻咻咻設定好，
+但用 [golang 的 library (Machinery)](https://github.com/RichardKnop/machinery) 則是常常照著 doc 走就不 work, 最後要進去看 source code
 
 這點其實是很有可能隨著時間而改變。
 因為當社群壯大之後，很多事情都會改善。
@@ -215,9 +215,16 @@ Golang 可以把東西 compile 出來就丟上 server，但 Ruby 寫出來的東
 ### 做一些功課，但也不用完全相信
 
 對於要解決的問題，要先做多一點功課。可能有人已經踩過同樣的雷了。
+做功課的目的比較偏向對於在實際上做下去之後，會遇到什麼困難先有個心裡準備。
+
 但對於別人的感想，卻也不用到全盤接受的程度。
 因為每個人、每個團隊的狀況都不同，還是要做出理性的判斷，最後還是要試了才知道。
-做功課的目的比較偏向對於在實際上做下去之後，會遇到什麼困難先有個心裡準備。
+有些討論的命題其實並沒有辦法得到一個非黑即白的答案。例如說：
+
+"*Golang 和 Rails 哪一個比較適合拿來做 Restful API*"。
+
+這個問題不論說"是"或者是"不是"都不會是完整的答案。因為 Restfule API 包含了各種情境，適合或不適合又要怎麼定義才算數呢？
+這時候要深入去看在哪一種情境下，用什麼樣的標準來判斷適不適合，然後再回頭看看這一切和自己遇到的狀況是不是吻合。
 
 ### 找到一個 project 來嘗試，並且定義 scope 和停損點
 
@@ -251,6 +258,10 @@ Golang 可以把東西 compile 出來就丟上 server，但 Ruby 寫出來的東
 
 
 ## 寫在後面
+
+以這次的這個 case 來說，即使後來沒有使用 Golang，但對於這個語言又比以前多了一些些掌握。
+覺得如果在各種需求符合的狀況下，它想必會是一個很強大的武器。
+以後如果有更適合的情境就可以更精準的認出來。
 
 寫程式這件事情對我們來說，是一個不斷前進的過程。
 好像一直都有新的東西可以試看看。除了會帶來新的思維之外，學習本身就是很有趣的一件事情。
