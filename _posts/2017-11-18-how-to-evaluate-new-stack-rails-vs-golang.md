@@ -175,11 +175,11 @@ Golang 是一個靜態語言，所以程式寫起來比較囉嗦是無法避免�
 ### Concurrency Control: Golang > Ruby
 
 在 Ruby 裡面要控制 concurrency 的東西大多數是很痛苦的。
-Golang 在這點則是有 go rutine。(但說來慚愧，這次我們並沒有真正用 go rutine 做什麼事情，所以上面的比較是從 google 得到的結論)
+Golang 在這點則是有 go routine。(但說來慚愧，這次我們並沒有真正用 go routine 做什麼事情，所以上面的比較是從 google 得到的結論)
 
 回到我們的使用情境，在真正用 Rails 寫程式的時候，其實也很少另外開 thread 來用。（webserver 這層就交給 puma 來處理了）
 再者，又因為我們大多數的API都要和 database 溝通，
-即使在 application 這層我們開了很多 concurrent (不管是 thread 或者是 go rutine, 並且有好好控制它…），concurrency 的限制還是會出現在 db connection 的這關。
+即使在 application 這層我們開了很多 concurrent (不管是 thread 或者是 go routine, 並且有好好控制它…），concurrency 的限制還是會出現在 db connection 的這關。
 
 所以以我們目前預想的情境來說，幫助好像也不太大。
 
